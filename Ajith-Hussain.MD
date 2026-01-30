@@ -200,10 +200,10 @@ Yes, regarding the KMS key only, because that is not just read KMS key that you 
 Okay. Have you hosted a website on S3?
 
 **Hussain:** 
-Yes. Maybe a static website on S3.
+Yes. 
 
 **Ajith:**  
-Do you remember what? Suppose I have a domain abc.com, and I want to host it on S3. So can you recollect what kind of configurations or what kind of steps you have to do to make sure that website is publicly available and deployed on S3?
+Maybe a static website on S3.Do you remember what? Suppose I have a domain abc.com, and I want to host it on S3. So can you recollect what kind of configurations or what kind of steps you have to do to make sure that website is publicly available and deployed on S3?
 
 **Hussain:**  
 Yeah, I think we also have to make use of CloudFront in front of S3, that we can mention the ARN of S3, and there should be an index.html file in S3, and we have to mention that specific file to be accessed to.
@@ -221,12 +221,15 @@ Okay. No, no worries. No worries. So, we spoke about security, right? What kind 
 Sure. So I have worked with healthcare domain clients where the compliances and security, these are the two main pillars that they have to work on. So, and also, be it enterprise-level solution or be it a new application, new company, but everyone has to be cost-sensitive. Now, let's see, so I am definitely responsible for how the cost management is to be done. So how I would look at it is, first I'll make sure that the compliance and security, these two things are not compromised whenever I am trying to reduce the cost. Now, there are a lot of things that I'll go through. First is, I'll check that what is the service which is costing the highest for the AWS account, and then I'll see if we can minimize it or if we can have alternative of it. Second, if I know that these are the instances we will be using for long terms, then definitely we'll ask to get reserved instances, and we can also pay the money upfront. So that will be way cheaper for us. And we can also use spot instances for the task like batch jobs are going on. So if any interruption is there, then also it's fine for the developers. So I'll make sure that we use those. Next, there are a lot of updates coming from AWS itself. Let's say recently they said that GP2 was available, but now GP3 is also available, and they suggest to shift your traffic from GP2 to GP3. It will give high performance, and it's cheaper as well. So I'll make sure to integrate those solutions, to change instance types, and see what intensive instances we are using and are they required or not. Because instances are like GPU intensive, IOPS intensive, memory intensive, and these are the specific families there and instance types are there. So if we can switch from instance type like, say, T3 to T3a because T3a is cheaper but the configurations are the same. So if those are the scenario, then I'll hop onto that. Next, we definitely take backups of RDS, we definitely take backups of EBS. So what is the retention of those backups? If you are taking, if you are keeping it for longer time which is not required, so I'll minimize those retention. Then in storage classes, we have storage in S3. So are we keeping it in which class? If we know that this particular storage is not required, then we can keep it in Glacier class or archive class. These are the things that I'll do. And I'll also make use of the AWS services like AWS Cost Explorer and AWS Trusted Advisor. So these are the services which suggests on how we can save cost.
 
 **Hussain:**  
-So yeah, these are the things that come to my mind as of now. Is Trusted Advisor free?
+So yeah, these are the things that come to my mind as of now. 
 
-**Ajith:**  
+**Ajith:**
+Is Trusted Advisor free?
+
+**Hussain:**    
 No, I think you have to pay for it.
 
-**Hussain:**  
+**Ajith:**  
 Okay. Okay. So you mentioned that if there are any batch jobs, you can use a spot instance. Okay? So suppose I have a scenario where at 11:30 PM, I want to run a job which will fetch some data from the database and massage data and put it on some other data pipeline, right? So in this scenario, will you still use a spot instance? Batch jobs, right? So this is kind of a batch job, right? Or maybe a particular batch job which needs to be run at a particular time. So will you still run a spot? That is the question.
 
 **Ajith:**  
