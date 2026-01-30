@@ -188,27 +188,30 @@ Sure. So for this, we will use STS, that is Secure Token Service. And how we wou
 Okay. So while establishing this particular connectivity, did you face any issues in your past, any experience with connectivity failures, and what was the issue like, and how did you resolve those?
 
 **Hussain:**  
-Yes, cross-account access is tricky, right? For most of the times, it doesn't work in the first attempt when it comes to multiple environments, multiple services. So anything that comes to your mind that that particular issue was for a long time, and you figured out anything that comes to your mind?
+Yes, 
 
-**Ajith:**  
+**Ajith:**
+cross-account access is tricky, right? For most of the times, it doesn't work in the first attempt when it comes to multiple environments, multiple services. So anything that comes to your mind that that particular issue was for a long time, and you figured out anything that comes to your mind?
+
+**Hussain:**  
 Yes, regarding the KMS key only, because that is not just read KMS key that you have to give, but you also have to give extra read access to the policies in account B as well. I'm not able to recall what's those specific read and get access you have to add, but those are the things also policies you have to add. And also when you are trying to access any S3 bucket and if it's a cross-account, then you also have to mention inside the bucket policies that this is the role which should be allowed to do access on the S3. So bucket policies also we have to take into consideration there.
 
-**Hussain:**  
+**Ajith:** 
 Okay. Have you hosted a website on S3?
 
-**Ajith:**  
+**Hussain:** 
 Yes. Maybe a static website on S3.
 
-**Hussain:**  
+**Ajith:**  
 Do you remember what? Suppose I have a domain abc.com, and I want to host it on S3. So can you recollect what kind of configurations or what kind of steps you have to do to make sure that website is publicly available and deployed on S3?
 
-**Ajith:**  
+**Hussain:**  
 Yeah, I think we also have to make use of CloudFront in front of S3, that we can mention the ARN of S3, and there should be an index.html file in S3, and we have to mention that specific file to be accessed to.
 
-**Hussain:**  
+**Ajith:**  
 Okay. Anything else that comes to your mind, or that is it?
 
-**Ajith:**  
+**Hussain:**  
 Yeah, actually I don't remember that because I have done it long back.
 
 **Hussain:**  
