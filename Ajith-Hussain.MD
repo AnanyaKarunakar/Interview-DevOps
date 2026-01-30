@@ -116,7 +116,7 @@ Okay. So you mentioned that VPC peering is cheap as compared to Transit Gateway 
 So the data transfer via VPC peering is cheaper than the data transfer via Transit Gateway.
 
 **Ajith:**  
-Okay. So it depends on the data transfer. Just configuration is fine.
+Okay. So it depends on the data transfer. Just configuration is fine.   #Names mismach 
 
 **Hussain:**  
 Okay. Okay. Fine. Hussain, have you worked with disaster recovery in your experience?
