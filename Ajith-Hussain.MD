@@ -297,13 +297,13 @@ Right now we host it on ECR, AWS ECR.
 
 #TimeStamp 48:25
 
-**Hussain:**  
+**Ajith:**  
 Okay. ECR. And how do you control how many number of images are there in ECR because it can grow, right? I have been working with a customer where some of the DevOps engineers have kept like unlimited number of ECR images, and their ECR usage or bill has been shot up. So what kind of practices you follow to ensure that the ECR images are not orphan, and only required or whichever images are required are there in the repository? How do you ensure that?
 
-**Ajith:**  
+**Hussain:**  
 Correct. Yes. So that is a case that was a case with our organization as well because developers would add a tag, and they would push even for testing, they would push a lot of Docker images. So we have a couple of Lambda functions that will trigger on daily basis to check how many images are there, and the latest 5 to 7 images, it will make sure that it is there in ECR, but the older images, it will, we don't just do it for ECR, we do it for all the resources as well, for EC2 and RDS if they are running on the nighttime as well, so it will make sure that during night time, we scale down those resources because in the night time no one is using that. And similarly we do it for ECR as well.
 
-**Hussain:**  
+**Ajith:**  
 Okay. Okay. Fine. So one of the challenges that I face in our org is basically developer says that this particular Docker images are working fine or absolutely fine in our local machines, but when we deploy it on maybe AWS environment, it doesn't work. Okay? So this is a very typical and common scenario. Okay? So how do you ensure that whatever Docker image is created on the developer machine is working as is on the ECS cluster or EKS cluster?
 
 **Ajith:**  
