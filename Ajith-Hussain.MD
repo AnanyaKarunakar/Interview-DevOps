@@ -116,30 +116,33 @@ Okay. So you mentioned that VPC peering is cheap as compared to Transit Gateway 
 So the data transfer via VPC peering is cheaper than the data transfer via Transit Gateway.
 
 **Ajith:**  
-Okay. So it depends on the data transfer. Just configuration is fine.   #Names mismach 
+Okay. 
 
-**Hussain:**  
+**Hussain:**
+So it depends on the data transfer. Just configuration is fine.   
+
+**Ajith:**  
 Okay. Okay. Fine. Hussain, have you worked with disaster recovery in your experience?
 
-**Ajith:**  
+**Hussain:**  
 Yes, I worked with.
 
-**Hussain:**  
+**Ajith:**  
 Okay. So suppose I have an e-commerce website, okay? And I want to design a disaster recovery solution for this e-commerce website, and the disaster recovery region should be geographically isolated from the primary one. So what would be the solution that you will design?
 
-**Ajith:**  
+**Hussain:**  
 Sure. So first of all, I would get to know how critical is your application, and I would ask that if you are okay with some time of downtime or no downtime is required. Okay. Accordingly, I will set up a solution. So let's go through those scenarios. In the first scenario where you say that we can handle some downtime, but we need a cheaper solution, so at that time we would go with backup and recovery process where we are backing up all the EKS cluster and the application and the RDS, and we are ready whenever the disaster happens. We will spin up the new EKS, we will spin up the new RDS in the DR region, and once the application is up, we will route the traffic to the new region. So in this scenario, there might be some downtime, but it is the cheapest solution. Coming to the next solution where you want less amount of downtime, in that scenario, what we can have is we can have a read replica in another region for RDS. We can have EKS cluster there, but we'll have scaled down all the nodes to zero. That means your application is not running, but it is ready whenever the disaster happens, so in less amount of time, we just have to spin up the nodes of the EKS, and then we will route the traffic. And in the third scenario where you say that your application is very much critical, you have to have the application up all the time, you cannot afford any downtime. At that time, in the DR region, we will spin up the full-scaled EKS. We will have RDS as read replica. And at the time of disaster, we will have failover policies in our Route 53. So whenever the application load balancer is not giving the perfect health check in the primary region, then all the traffic will be diverted to the secondary region, and without any downtime, the users won't face any issues, and all the traffic will be diverted to the DR region. So this is how we would set up a DR.
 
-**Hussain:**  
+**Ajith:**  
 Okay. So just in case, if you want to support this particular e-commerce website globally, okay? So imagine this will be accessed from US as well as India, okay? And the latency should be also very minimum, right? If someone from India tries to access, it should be accessible from the nearby data center, and similarly with the US, okay? So in that case, how will you design a solution? Because I also want to separate the writes, okay? So the database also needs to be separate from each other. So in that case, how will you support both the regions at one time?
 
-**Ajith:**  
+**Hussain:**  
 Okay. Sure. So for that, we would also make use of CDN like CloudFront, which is a global service. So it will help us to serve the static content, and we will use a global load balancer so that any request coming from the specific region, it will be handled in that particular region itself. And talking about database, we will have read replicas in all the regions from where the traffic will be coming from. And also to reduce latency, we will use ElasticCache or RDS for caching the data in those specific regions. So this is how we will maintain the lowest latency, and the users can get that data from the nearest data center.
 
-**Hussain:**  
+**Ajith:**  
 Okay. So the CDN will take care of your front end. The ElasticCache will cache your database queries, but still it will not support multiple writes, right? So it needs to be some kind of a global table solution to make sure this happens. That's okay, not a problem. So basically, you have worked with compute, networking, databases, and storage, all right? So can you name a few security best practices in each and every area that you can think of?
 
-**Ajith:**  
+**Hussain:**  
 Okay. So starting from networking, I would say that make use of AWS services like AWS Shield is there, then AWS WAF is there to have specific rules so that whatever requests are coming in, that we can authenticate first and then move ahead. We can enable AWS Flow Logs to trace all the requests which are flowing through VPC. These are the things that we can think of in networking part. Second, talking about compute and storage. So I would say whatever RDS are getting created or whatever EBS are getting created, those should be encrypted with an encryption key, and we'll also make sure that we back up those RDS and EBS volumes. Next, we'll make sure to enable all the CloudTrail logs, and we can also configure a few AWS Config rules so that if any misconfigurations are done in our AWS environment, then we can set up a few Lambda functions or we can set a few events to correct those things.
 
 **Hussain:**  
