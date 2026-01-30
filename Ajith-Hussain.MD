@@ -232,61 +232,61 @@ No, I think you have to pay for it.
 **Ajith:**  
 Okay. Okay. So you mentioned that if there are any batch jobs, you can use a spot instance. Okay? So suppose I have a scenario where at 11:30 PM, I want to run a job which will fetch some data from the database and massage data and put it on some other data pipeline, right? So in this scenario, will you still use a spot instance? Batch jobs, right? So this is kind of a batch job, right? Or maybe a particular batch job which needs to be run at a particular time. So will you still run a spot? That is the question.
 
-**Ajith:**  
+**Hussain:**  
 So let's say how much time your spot instance is taking, first of, how much time your batch job is taking, and also if it is not completed, are there any retries available? So if retry is there, then definitely you can use a spot instance. If it completes the job, then it's fine. If it doesn't complete the job, if there are any interruptions there, and then if you can rerun your batch job, then also it's fine. You can use spot instance because it will create a new instance and it will run through it.
 
-**Hussain:**  
+**Ajith:**  
 Okay, what if that particular instance type is not available in that region?
 
-**Ajith:**  
+**Hussain:**  
 So I think there are a lot of alternative instance types available. Or I'll also switch if instance family, if required, because a higher instance type is still cheaper than an on-demand instance that we take. So I'll again measure the cost. If it's cheaper, then we can use those things.
 
-**Hussain:**  
+**Ajith:**  
 Okay. No, no worries. So have you worked with Infrastructure as Code? In your experience, right? So in AWS, there is CloudFormation right, and we have Terraform as well. Okay? So out of the two, which one is more suitable for you? Or maybe under what circumstances you will choose CloudFormation versus Terraform or Terraform versus CloudFormation. So just wanted to understand your thought process behind both the technologies.
 
-**Ajith:**  
+**Hussain:**  
 Sure. So I feel Terraform provides a lot of functionalities, be it just for AWS or it is also multi-cloud. And mostly on the enterprise level, we use Terraform, even though we have to deploy everything on the AWS only, because it provides like S3 state file, and also there are a lot of, it multi-cloud support is there, then modularized code is there, that is one code you can use it multiple times for multiple environments. You don't have to reuse the code, rewrite the code. So these functionalities are provided by Terraform. So mostly I would prefer Terraform over CloudFormation, even though when you want to deploy everything on the AWS. But there might be a few situations where you go with CloudFormation. Like, one of the major functionality that CloudFormation has is if any new service comes to AWS, it will take a bit of time to have their code on Terraform, but CloudFormation will have it immediately. So if you are on a project where any new services that come to AWS and you have to automate it, then I think you should go with CloudFormation. Also, CloudFormation is very much easy when it comes for creating a code in AWS. Let's say if you want to create a Lambda function, so in Terraform, there is a long process to write a Python code, then you have to push the Python code up, and then you have to create a Lambda function. But in CloudFormation, that is also easy. So these are the few functionalities where you might choose CloudFormation. But if you ask me, then I would prefer Terraform only.
 
-**Hussain:**  
+**Ajith:**  
 Okay, so you mentioned about multi-cloud, right? One of the key benefits of using Terraform over CloudFormation is clearly the multi-cloud or cloud-agnostic abilities. But imagine you have a dedicated infrastructure only on AWS; it does not have any other cloud provider or on-premises or wherever. Will you still choose Terraform, or you'll go ahead with CloudFormation?
 
-**Ajith:**  
+**Hussain:**  
 I would still choose Terraform because multi-cloud is one of the functionalities, but there are other functionalities as well, like say modularized code is there. The community of Terraform is way huge; if any issues that you face, then you'll be able to figure out way easier. And if you have multiple environments that you have to deploy, if you have multiple accounts that you have to deploy, you can do it in just one directory of the Terraform file. So those are a lot of functionalities provided by Terraform. So that's why I would still prefer Terraform.
 
-**Hussain:**  
+**Ajith:**  
 Okay. Okay. So during the initial conversation, you mentioned about load balancers, right? During the highly available question. So in AWS, there are multiple types of load balancers, right? So what are those, and under what circumstances you'll use which load balancer?
 
-**Ajith:**  
+**Hussain:**  
 Okay. So AWS provides three types of load balancers: Application Load Balancer, Network Load Balancer, and Gateway Load Balancer. And there was a Classic Load Balancer which is which is deprecated right now. So talking about Application Load Balancer, if you have path-based routing, if you have host-based routing, and for application use case, mostly we use Application Load Balancer because it works on layer 7 of OSI model, that is application layer, and it will mostly route your traffic to your target groups and EC2 instances. Okay. And then next is Network Load Balancer. So Network Load Balancer is used where you have to serve your traffic with very low latency. And for example, you would use Network Load Balancer in trading platforms where millisecond is also very much important, and you cannot expect any delay on your request. So in those terms, you would use Network Load Balancer. Also, a functionality that NLB provides is you can attach an elastic IP to it. And a third load balancer is Gateway Load Balancer. So Gateway Load Balancer mostly comes in terms of security because it integrates well with your API gateway and the web as well, and it is mostly used in financial sector where your authorization is more important than reaching to the application. So whenever a request comes, then Gateway Load Balancer is responsible to check if the request is authentic or not, and then only it will forward it to the application. So that's when you use Gateway Load Balancer.
 
-**Hussain:**  
+**Ajith:**  
 Okay. Okay. So if you want to deploy your serverless applications right, you can use maybe API Gateway and Lambda, right? So what is the difference, or maybe when you would use an API Gateway versus when you would use an Application Load Balancer? Any particular use cases that things that come to your mind where API Gateway is more suited or load balancer is more suited?
 
-**Ajith:**  
+**Hussain:**  
 Yeah. So let's say if your APIs are transferring only inside the VPC, and those are simple APIs, any path-based routing or host-based routing will work, then at that time you would use Application Load Balancer itself. But if your APIs also have to be authenticated, those are coming from third-party APIs, and you also have to send your request to third-party tools, so in those scenarios, you would use API Gateway. API Gateway also supports DDoS protection, and it also supports TLS by default. There are a lot of configurations that you can do in terms of security in API Gateway. So in those scenarios, you would go with API Gateway. But if anything that you want to request inside your VPC, so then I would suggest to go with Application Load Balancer.
 
-**Hussain:**  
+**Ajith:**  
 Okay. So suppose your application is deployed completely on AWS, right? It has Route 53, it has load balancers, it has auto-scaling groups, it can have an EKS cluster or ECS cluster, it will have RDS instances. Suppose users are reporting failures in your application, okay? It can be any kind of a failure. We just got a message from one of our customers that your application is not working. So what would be your next steps as a cloud engineer to investigate the issue, and how do you remediate that particular issue?
 
-**Ajith:**  
+**Hussain:**  
 Okay. So first thing I would check is what changed when the application was running. Was there any deployment done, and after that the application is not running, or if any configuration has been changed? I'll first check the pipelines if anyone has run the pipeline, if any infrastructure has been deployed or application has been deployed. So first I will check that. If those are the things, then it will be easier for us to catch hold of the issue, and we can revert it back. But let's say if there are no deployments done, then I'll go to the like EKS is there, then I'll first check the logs of each and every component. I'll start with EKS. I'll see if the pod is running or not, if the application is active or not. Then I would check the database, are active or not, has anyone stopped it, or if there are any kind of those issues. Next, I would also see the logs, the flow logs which are going through. We have also monitoring in place, observability in place. We have health checks in place. So we will check that which health check is failing. Is your ALB is not working, or your database is not working? And most probably, I'll get hold of that specific issue, and then I'll first see if a new application was, if a new version was deployed, then I'll revert it back so that the application is stable. My first point, my first thing would be to make the application stable and then figure out what was the issue. So I'll first revert it back, and then I'll see through the logs that what's the issue, and then I'll try to again redeploy it on the staging and dev environment first and then again move to production.
 
-**Hussain:**  
+**Ajith:**  
 Okay. So Hussain, we spent a lot of time on AWS. So I think let's dive deep into the other DevOps tools right, like Docker, Kubernetes, Terraform. So just wanted to understand from your end, apart from AWS, what kind of other DevOps tools you are well-versed with, and what's your experience on all the tools like?
 
-**Ajith:**  
+**Hussain:**  
 So I'm well-versed with Terraform and Kubernetes because that's a day-to-day task that I have to do, and also creating CI/CD pipelines, that is also something that I do on daily basis using GitHub Actions and AWS CodePipeline. And also creating and pushing Docker images to ECR and deploying those things.
 
-**Hussain:**  
+**Ajith:**  
 Okay. So do you create Docker images, or you get Docker images from the developers? You are just responsible for the CI/CD?
 
-**Ajith:**  
+**Hussain:**  
 No, I create as well. We get on a call with the developer; mostly I only create. And yeah, the requirements, let's say there is a requirements.txt file, those things will be given by the developer, but we usually create a lightweight image.
 
-**Hussain:**  
+**Ajith:**  
 Okay, okay. In that case, I want to understand what are some Docker best practices that you follow in terms of image creation, right?
 
-**Ajith:**  
+**Hussain:**  
 So as I said, we have to create a lightweight Docker image. It should be optimized. It should not be a very heavy weight. So for that, we first, we should use is, it should be a multi-stage build where initially in the first stage you are building the application, and then you are utilizing that artifact which was built by the older image, and then you build your final image, and then you run the container. So that is one thing to have multi-stage builds. And even in that, you have to make sure that you're using lightweight image, one of the, and also you shouldn't be using like, let's say Alpine is one of the lightweight image, but you shouldn't be using like Alpine:latest because there might be any new configurations done, so there shouldn't be any surprises for you. So always make sure that we are using the base image with a specific tag only. And then definitely we will move ahead. We will update the tags. We will go through the document, what are the new updates in that specific image, and then we'll update it. Next best practice that we follow is to not run the container with the root access. So we will create a specific user in that image, and then we will run the Docker image with that specific user having the access to that specific folder only. And we'll make sure, we also make sure that whenever we create a Docker image, we also document it so that if any new DevOps engineer comes or even the developer comes and watches that image, they should know that why every command is written, for what purpose. So these are the things that I would make sure while creating a Docker image.
 
 **Hussain:**  
@@ -294,6 +294,8 @@ Okay. And where do you host your Docker images?
 
 **Ajith:**  
 Right now we host it on ECR, AWS ECR.
+
+#TimeStamp 48:25
 
 **Hussain:**  
 Okay. ECR. And how do you control how many number of images are there in ECR because it can grow, right? I have been working with a customer where some of the DevOps engineers have kept like unlimited number of ECR images, and their ECR usage or bill has been shot up. So what kind of practices you follow to ensure that the ECR images are not orphan, and only required or whichever images are required are there in the repository? How do you ensure that?
